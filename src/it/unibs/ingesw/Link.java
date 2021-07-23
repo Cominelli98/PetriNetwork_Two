@@ -2,39 +2,31 @@ package it.unibs.ingesw;
 
 public class Link {
 	
-	private Transition transition;	//node origin
-	private Location location;		//node dest
+	private Node origin;
+	private Node destination;		
 	private int netId;
 	
-	public Link (Transition transition, Location location, int netId) {
-		this.transition = transition;
-		this.location = location;
+	public Link (Node origin, Node destination, int netId) {
+		this.origin = origin;
+		this.destination = destination;
 		this.netId = netId;
 	}
-	
-	
-	public Transition getTransition() {
-		return transition;
+
+	public Node getOrigin() {
+		return origin;
 	}
 
-	public void setTransition(Transition transition) {
-		this.transition = transition;
+	public void setOrigin(Node origin) {
+		this.origin = origin;
 	}
 
-	public Location getLocation() {
-		return location;
+	public Node getDestination() {
+		return destination;
 	}
 
-	public void setLocation(Location location) {
-		this.location = location;
+	public void setDestination(Node destination) {
+		this.destination = destination;
 	}
 
-	public int getNetId() {
-		return netId;
-	}
-
-	public void setNetId(int netId) {
-		this.netId = netId;
-	}
 
 }

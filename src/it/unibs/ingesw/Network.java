@@ -107,7 +107,7 @@ public class Network implements NameGiver{
 	public StringBuffer getLinksList() {
 		StringBuffer s = new StringBuffer("");
 		for (int i = 0; i < netLinks.size(); i++) {
-			s.append(i + ")" + netLinks.get(i).getLocation().getName() + "----" + netLinks.get(i).getTransition().getName() + "\n");
+			s.append(i + ")" + netLinks.get(i).getOrigin().getName() + "---->" + netLinks.get(i).getDestination().getName() + "\n");
 		}
 		return s;
 	}

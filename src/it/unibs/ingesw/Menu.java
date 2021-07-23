@@ -169,6 +169,7 @@ public class Menu {
 					System.out.print(currentNetwork.getTransitionsList());
 					trans = Utility.readLimitedInt(0, currentNetwork.getTransitions().size()-1);
 					createLink(currentNetwork.getTransition(trans), currentNetwork.getLocation(loc));
+					
 					break;
 			}
 		}while(select != 0);
@@ -247,7 +248,7 @@ public class Menu {
 	private void createBase() {
 		createLocation();
 		createTransition();
-		currentNetwork.addLink(new Link(currentNetwork.getTransition(0), currentNetwork.getLocation(0), currentNetwork.getNetId()));
+		createLink(currentNetwork.getTransition(0), currentNetwork.getLocation(0));
 		
 	}
 	
@@ -299,10 +300,20 @@ public class Menu {
 	 * @param l un oggetto location
 	 */
 	public void createLink(Transition t, Location l) {
-		if (checkLinkExistence(t,l))
-			System.out.println(LINK_GIA_PRESENTE);
-		else
-			currentNetwork.addLink(new Link(t, l, currentNetwork.getNetId()));
+		int scelta;
+		System.out.println("Qual è l'origine del collegamento? 0 per la location, 1 per la transition");
+		scelta = Utility.readLimitedInt(0, 1);
+		if (scelta == 0)
+			if (checkLinkExistence(l, t))
+				System.out.println(LINK_GIA_PRESENTE);
+			else
+				currentNetwork.addLink(new Link(l, t, currentNetwork.getNetId()));
+		else 
+			if (checkLinkExistence(t, l))
+				System.out.println(LINK_GIA_PRESENTE);
+			else {
+				currentNetwork.addLink(new Link(t, l, currentNetwork.getNetId()));
+			}
 	}
 	
 	/**
@@ -311,14 +322,13 @@ public class Menu {
 	 * @param l location
 	 * @return boolean
 	 */
-	private boolean checkLinkExistence(Transition t, Location l) {
+	private boolean checkLinkExistence(Node origin, Node destination) {
 		
 		for (int i = 0; i < currentNetwork.getNetLinks().size(); i++) {
-			if(currentNetwork.getNetLinks().get(i).getTransition().equals(t) &&
-					currentNetwork.getNetLinks().get(i).getLocation().equals(l))
+			if(currentNetwork.getNetLinks().get(i).getOrigin().equals(origin) &&
+					currentNetwork.getNetLinks().get(i).getDestination().equals(destination))
 				return true;
 		}
-		
 		return false;
 	}
 	
