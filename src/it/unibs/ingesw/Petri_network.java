@@ -37,6 +37,10 @@ public class Petri_network implements NameGiver{
 		return name;
 	}
 	
+	public int getNetId() {
+		return petriNetId;
+	}
+	
 	public StringBuffer getTransitionsList() {
 		StringBuffer s = new StringBuffer("");
 		for (int i = 0; i<petriTransitions.size(); i++) {
