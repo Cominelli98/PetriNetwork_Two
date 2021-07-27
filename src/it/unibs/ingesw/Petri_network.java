@@ -36,4 +36,10 @@ public class Petri_network implements NameGiver{
 	public String getName() {
 		return name;
 	}
+
+	public int getNetId() {
+		return petriNetId;
+	}
+	
+	
 }
