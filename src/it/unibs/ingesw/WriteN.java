@@ -53,6 +53,14 @@ public final class WriteN {
 				e.printStackTrace();
 			}
 		}
+		File fp = new File("petri_data.txt");
+		if (!fp.exists()) {
+			try {
+				fp.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 }
