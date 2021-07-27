@@ -44,6 +44,20 @@ public final class Utility {
 		
 	}
 	
+	public static int readLowLimitInt(int min) { //legge interi con estremo inferiore compreso
+		int i=min-1;
+		boolean finito = false;
+		do {
+			i = readInt();
+			if(i>=min)
+				finito = true;
+			else System.out.println("valore inferiore al minimo");
+			
+		}while(!finito);
+		return i;
+		
+	}
+	
 	public static String readString() {
 		String name = scanner.next();
 		return name;

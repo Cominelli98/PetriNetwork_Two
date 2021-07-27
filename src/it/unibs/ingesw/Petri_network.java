@@ -2,7 +2,7 @@ package it.unibs.ingesw;
 
 import java.util.ArrayList;
 
-public class Petri_network {
+public class Petri_network implements NameGiver{
 	private ArrayList<Petri_location> petriLocations;
 	private ArrayList<Petri_transition> petriTransitions;
 	private ArrayList<Petri_link> petriNetLinks;
@@ -26,5 +26,14 @@ public class Petri_network {
 	
 	public ArrayList<Petri_transition> getTransitions(){
 		return petriTransitions;
+	}
+	
+	public int getFatherNetId() {
+		return fatherNetId;
+	};
+
+	@Override
+	public String getName() {
+		return name;
 	}
 }

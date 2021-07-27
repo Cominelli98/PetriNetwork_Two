@@ -21,4 +21,5 @@ public class Petri_location extends Location{
 	public int getToken () {
 		return this.token;
 	}
+	
 }

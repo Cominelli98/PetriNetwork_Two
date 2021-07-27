@@ -32,7 +32,7 @@ public final class Converter {
 	}
 	
 	
-	//vvvvvvv è un'atrocità ma ci lavoreremo vvvvvvv
+	//vvvvvvv è un'atrocità ma ci lavoreremo vvvvvvv :(
 	
 	private static Node petriOrigin(ArrayList<Petri_location> pl, ArrayList<Petri_transition> pt, Link l) {
 		if (l.getOrigin().getClass()==Location.class) {

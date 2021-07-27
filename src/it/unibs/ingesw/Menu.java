@@ -1,11 +1,6 @@
 package it.unibs.ingesw;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
-
 
 
 public class Menu {
@@ -18,6 +13,7 @@ public class Menu {
 			"1:Crea Network",
 			"2:Salva reti",
 			"3:Visualizza reti",
+			"4:Crea una rete di Petri da quelle esistenti",
 			"0:Esci",
 			"___________________________",
 			
@@ -59,6 +55,7 @@ public class Menu {
 	
 	private Network currentNetwork;
 	private ArrayList<Network> networks;
+	private ArrayList<Petri_network> petriNetworks;
 	
 	/**
 	 * Costruisce un menù inizializzando l'array di reti e creando, se non esiste ancora, il file su cui verranno
@@ -67,6 +64,7 @@ public class Menu {
 	public Menu() {
 		
 		networks = new ArrayList<>();
+		petriNetworks = new ArrayList<>();
 		WriteN.fileCreation();
 		Network.network_id = Utility.getMax(ReadN.getNetIDsFromFile());
 		
@@ -99,6 +97,9 @@ public class Menu {
 					else {
 						System.out.println("Non ci sono reti da visualizzare");
 					}
+					break;
+				case 4:
+					createPetri();
 					break;
 				case 0:
 					Utility.close();
@@ -140,8 +141,8 @@ public class Menu {
 			int num = -1;
 			switch (select) {
 				
-			case 0:
-				break;
+				case 0:
+					break;
 				case 1:
 					createLocation();
 					System.out.println(ASKLINK);
@@ -169,7 +170,6 @@ public class Menu {
 					System.out.print(currentNetwork.getTransitionsList());
 					trans = Utility.readLimitedInt(0, currentNetwork.getTransitions().size()-1);
 					createLink(currentNetwork.getTransition(trans), currentNetwork.getLocation(loc));
-					
 					break;
 			}
 		}while(select != 0);
@@ -240,8 +240,62 @@ public class Menu {
 		
 	}
 	
+	private void createPetri() {
+		
+		System.out.println(getNetworksList());
+		int select = -1;
+		select = Utility.readLimitedInt(0, networks.size()-1);
+		String name;
+		do {
+		System.out.println("Come vuoi chiamare questa rete di Petri?");
+		name = Utility.readString();
+		if(checkPNetExistence(name))
+			System.out.println("Esiste già una rete di Petri con questo nome");
+		}while(checkPNetExistence(name));
+		Petri_network toAdd = new Petri_network(networks.get(select), name);
+		setCosts(toAdd);
+		setTokens(toAdd);
+		if (!petriExistence(toAdd))
+			petriNetworks.add(toAdd);
+		else
+			System.out.println("Questa rete di Petri esiste già");
+	}
 	
 	
+	
+	private boolean petriExistence(Petri_network toAdd) {
+		
+		if (petriNetworks.size() == 0) {
+			return false;
+		}
+		
+		for (Petri_network pn : petriNetworks) {
+			if(petriSingleCheck(pn, toAdd))
+				return true;
+		
+		}
+		return false;
+
+	}
+	
+	
+	
+	private boolean petriSingleCheck(Petri_network pn, Petri_network toCheck) {
+		if (toCheck.getFatherNetId() == pn.getFatherNetId()){
+			for(int i=0; i<toCheck.getLocations().size(); i++) {
+				if(toCheck.getLocations().get(i).getToken() != pn.getLocations().get(i).getToken())
+					return false;
+			}
+			
+			for (int j=0; j<toCheck.getTransitions().size(); j++) {
+				if(toCheck.getTransitions().get(j).getCost() != pn.getTransitions().get(j).getCost())
+					return false;
+			}
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * Crea una base per la rete imponendo la creazione di un posto, una transizione e creando un link tra esse
 	 */
@@ -273,6 +327,7 @@ public class Menu {
 		}while(isEqual);
 		currentNetwork.addLocation(name);
 	}
+	
 	/**
 	 * Medoto che crea una nuova transizione nella rete con l'inserimento di un "nome" univoco
 	 */
@@ -350,6 +405,16 @@ public class Menu {
 		
 	}
 	
+	private boolean checkPNetExistence (String name) {
+		if(petriNetworks.size()>0) {
+			for (Petri_network pn : petriNetworks) {
+				if(Utility.nameCheck(pn, name)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	/**
 	 * Ritorna uno StringBuffer con la lista di tutte le network create dall'avvio del programma
 	 * @return StringBuffer formattato: 0)prima rete 1)seconda rete 2)terza rete etc.
@@ -369,5 +434,20 @@ public class Menu {
 		if (!ReadN.checkIdExistence(n.getNetId()))
 			WriteN.save(n);
 		System.out.println(SALVATAGGIO + " rete " + n.getName());
+	}
+	
+	private void setCosts(Petri_network toSet) {
+		for (Petri_transition pt : toSet.getTransitions()) {
+			System.out.println("Inserisci il costo della transizione "+pt.getName() + " (1 per default)");
+			pt.setCost(Utility.readLowLimitInt(1));
+	
+		}
+	}
+	
+	private void setTokens(Petri_network toSet) {
+		for (Petri_location pl : toSet.getLocations()) {
+			System.out.println("Inserisci la marcatura iniziale della posizione "+pl.getName() + " (0 per default");
+			pl.setToken(Utility.readLowLimitInt(0));
+		}
 	}
 }
