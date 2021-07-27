@@ -48,7 +48,7 @@ public class Petri_network implements NameGiver{
 	public StringBuffer getLocationsList() {
 		StringBuffer s = new StringBuffer("");
 		for (int i = 0; i<petriLocations.size(); i++) {
-			s.append(i + ")" + petriLocations.get(i).getName() + " marcatura iniziale:" + petriLocations.get(i).getToken() + "\n");
+			s.append(i + ")" + petriLocations.get(i).getName() + " marcatura iniziale: " + petriLocations.get(i).getToken() + "\n");
 		}
 		return s;
 	}
