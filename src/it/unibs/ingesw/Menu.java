@@ -13,7 +13,7 @@ public class Menu {
 			"1:Crea Network",
 			"2:Salva reti",
 			"3:Visualizza reti",
-			"4:Crea una rete di Petri da quelle esistenti",
+			"4:Gestione reti di Petri", 
 			"0:Esci",
 			"___________________________",
 			
@@ -44,6 +44,17 @@ public class Menu {
 			"4:Visualizza rete complessiva",
 			"0:Indietro",
 			"___________________________"};
+	
+	final String MENUPETRI[] = {
+			"Scegli cosa fare?:",
+			"___________________________",
+			"1:Crea una rete di Petri a partire da una rete esistente",
+			"2:Visualizza una rete di Petri",
+			"3:Salva una o più reti di Petri",
+			"0:Indietro",
+			"___________________________",
+			
+	};
 	
 	final String ASKLINK = "A cosa vuoi collegarla? Inserisci il numero relativo";
 	final String SALVATAGGIO = "Salvataggio eseguito";
@@ -99,7 +110,8 @@ public class Menu {
 					}
 					break;
 				case 4:
-					createPetri();
+					//createPetri();
+					petriMenu();
 					break;
 				case 0:
 					Utility.close();
@@ -109,6 +121,35 @@ public class Menu {
 		
 	}
 	
+
+	private void petriMenu() {
+		int select = -1;
+		do {
+			for (String s : MENUPETRI)
+				System.out.println(s);
+			
+			select = Utility.readLimitedInt(0, MENUPETRI.length-4);
+			switch(select) {
+			
+			case 0:
+				break;
+			case 1:
+				createPetri();
+				break;
+			case 2: 
+				if(petriNetworks.size() != 0)
+					petriViewer();
+				else {
+					System.out.println("Non ci sono reti di Petri da visualizzare");
+				}
+				break;
+			case 3:
+				//petriSave();
+				break;
+			}
+		}while (select!=0);
+		
+	}
 
 	/**
 	 * Metodo di gestione della creazione di reti:
@@ -240,10 +281,49 @@ public class Menu {
 		
 	}
 	
+	private void petriViewer() {
+		System.out.println("Quale rete di Petri vuoi visualizzare?");
+		System.out.println(getPNetworksList());
+		int i = Utility.readLimitedInt(0, petriNetworks.size());
+		int select = -1;
+		do {
+			for (String s : MENUVISUALIZZA)
+				System.out.println(s);
+			select = Utility.readLimitedInt(0, MENUVISUALIZZA.length-4);
+			
+			switch(select) {
+			case 1:
+				System.out.println("ELENCO LOCATIONS:");
+				System.out.println(petriNetworks.get(i).getLocationsList());
+				break;
+			case 2:
+				System.out.println("ELENCO TRANSITIONS:");
+				System.out.println(petriNetworks.get(i).getTransitionsList());
+				break;
+			case 3:
+				System.out.println("ELENCO LINKS:");
+				System.out.println(petriNetworks.get(i).getLinksList());
+				break;
+			case 4:
+				System.out.println("ELENCO LOCATIONS:");
+				System.out.println(petriNetworks.get(i).getLocationsList());
+				System.out.println("ELENCO TRANSITIONS:");
+				System.out.println(petriNetworks.get(i).getTransitionsList());
+				System.out.println("ELENCO LINKS:");
+				System.out.println(petriNetworks.get(i).getLinksList());
+				break;
+			case 0:
+				break;
+			}
+		}while (select != 0);
+		
+	}
+	
 	private void createPetri() {
 		
 		System.out.println(getNetworksList());
 		int select = -1;
+		System.out.println("Da quale rete vuoi partire?");
 		select = Utility.readLimitedInt(0, networks.size()-1);
 		String name;
 		do {
@@ -356,7 +436,9 @@ public class Menu {
 	 */
 	public void createLink(Transition t, Location l) {
 		int scelta;
-		System.out.println("Qual è l'origine del collegamento? 0 per la location, 1 per la transition");
+		System.out.println("Com'è orientato il collegamento? \n 0)" + 
+				l.getName() + "---->" + t.getName() + "\n 1)" +
+				t.getName() + "---->" + l.getName());
 		scelta = Utility.readLimitedInt(0, 1);
 		if (scelta == 0)
 			if (checkLinkExistence(l, t))
@@ -427,6 +509,17 @@ public class Menu {
 		}
 		return s;
 	}
+	
+	private StringBuffer getPNetworksList(){
+		StringBuffer f = new StringBuffer("");
+		int i = 0;
+		for (Petri_network n : petriNetworks) {
+			f.append(i++ + ")" + n.getName() + "\n");
+		}
+		return f;
+	}
+	
+	
 	/**
 	 * Metodo che richiama dalla classe statica WriteN il salvataggio su file delle reti create
 	 */
@@ -446,7 +539,7 @@ public class Menu {
 	
 	private void setTokens(Petri_network toSet) {
 		for (Petri_location pl : toSet.getLocations()) {
-			System.out.println("Inserisci la marcatura iniziale della posizione "+pl.getName() + " (0 per default");
+			System.out.println("Inserisci la marcatura iniziale della posizione "+pl.getName() + " (0 per default)");
 			pl.setToken(Utility.readLowLimitInt(0));
 		}
 	}

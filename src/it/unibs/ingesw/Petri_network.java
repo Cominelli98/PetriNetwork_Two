@@ -36,10 +36,28 @@ public class Petri_network implements NameGiver{
 	public String getName() {
 		return name;
 	}
-
-	public int getNetId() {
-		return petriNetId;
+	
+	public StringBuffer getTransitionsList() {
+		StringBuffer s = new StringBuffer("");
+		for (int i = 0; i<petriTransitions.size(); i++) {
+			s.append(i + ")" + petriTransitions.get(i).getName() + " costo: " + petriTransitions.get(i).getCost() + "\n");
+		}
+		return s;
 	}
 	
+	public StringBuffer getLocationsList() {
+		StringBuffer s = new StringBuffer("");
+		for (int i = 0; i<petriLocations.size(); i++) {
+			s.append(i + ")" + petriLocations.get(i).getName() + " marcatura iniziale:" + petriLocations.get(i).getToken() + "\n");
+		}
+		return s;
+	}
 	
+	public StringBuffer getLinksList() {
+		StringBuffer s = new StringBuffer("");
+		for (int i = 0; i < petriNetLinks.size(); i++) {
+			s.append(i + ")" + petriNetLinks.get(i).getOrigin().getName() + "---->" + petriNetLinks.get(i).getDestination().getName() + "\n");
+		}
+		return s;
+	}
 }
