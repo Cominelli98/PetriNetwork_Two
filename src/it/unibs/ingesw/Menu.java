@@ -78,7 +78,7 @@ public class Menu {
 		petriNetworks = new ArrayList<>();
 		WriteN.fileCreation();
 		Network.network_id = Utility.getMax(ReadN.getNetIDsFromFile());
-		
+		Petri_network.petriNetworkId = Utility.getMax(ReadN.getPNetIDsFromFile());
 	}
 	
 	/**
