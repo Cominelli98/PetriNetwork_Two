@@ -65,6 +65,7 @@ public final class ReadN {
 		return false;
 	}
 	
+	
 	public static StringBuffer getNetNamesList(Class c) {
 		StringBuffer names = new StringBuffer();
 		try {
@@ -82,7 +83,7 @@ public final class ReadN {
 		return names;
 	}
 	
-	public static ArrayList<String> getNames(Class c) throws FileNotFoundException{
+	public static ArrayList<String> getNames(Class c) throws FileNotFoundException, IllegalArgumentException {
 		ArrayList<String> nets = readFile(c);
 		ArrayList<String> names = new ArrayList<>();
 		for(String s : nets) {
@@ -90,6 +91,14 @@ public final class ReadN {
 			names.add(n.getName());
 		}
 		return names;
+	}
+	
+	public static boolean checkNetNameExistence(String name, Class c) throws FileNotFoundException{
+		for (String string : getNames(c)) {
+			if (name == string)
+				return true;
+		}
+		return false;
 	}
 	
 }
