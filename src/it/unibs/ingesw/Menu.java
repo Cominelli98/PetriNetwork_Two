@@ -10,7 +10,7 @@ public class Menu {
 	private final String MENUSTART[] = {
 			"MENU:",
 			"___________________________",
-			"1:Gestisci reti",
+			"1:Crea una rete e gestiscila",
 			"2:Gestisci reti di Petri",
 			"0:Esci",
 			"___________________________",
