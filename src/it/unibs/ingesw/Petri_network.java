@@ -2,7 +2,7 @@ package it.unibs.ingesw;
 
 import java.util.ArrayList;
 
-public class Petri_network implements NameGiver{
+public class Petri_network implements NameGiver, JsonAble{
 	private ArrayList<Petri_location> petriLocations;
 	private ArrayList<Petri_transition> petriTransitions;
 	private ArrayList<Petri_link> petriNetLinks;

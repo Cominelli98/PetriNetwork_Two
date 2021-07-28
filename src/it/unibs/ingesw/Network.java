@@ -3,7 +3,7 @@ package it.unibs.ingesw;
 import java.util.ArrayList;
 
 
-public class Network implements NameGiver{
+public class Network implements NameGiver, JsonAble{
 	
 	private ArrayList<Location> locations;
 	private ArrayList<Transition> transitions;
