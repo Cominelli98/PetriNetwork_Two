@@ -27,6 +27,4 @@ public class Link {
 	public void setDestination(Node destination) {
 		this.destination = destination;
 	}
-
-
 }

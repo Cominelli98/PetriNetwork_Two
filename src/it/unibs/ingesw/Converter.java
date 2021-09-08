@@ -31,9 +31,6 @@ public final class Converter {
 		return temp;
 	}
 	
-	
-	//vvvvvvv è un'atrocità ma ci lavoreremo vvvvvvv :(
-	
 	private static Node petriOrigin(ArrayList<Petri_location> pl, ArrayList<Petri_transition> pt, Link l) {
 		if (l.getOrigin().getClass()==Location.class) {
 			for (Location location : pl) {
@@ -77,12 +74,4 @@ public final class Converter {
 		}
 		return temp;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 }

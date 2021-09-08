@@ -50,13 +50,6 @@ public class Menu {
 					Menu_Reti.createNetwork(currentNetwork, networks);
 					break;
 				case 2:
-//					if(networks.size() != 0)
-//						saveOption();
-//					else
-//						System.out.println("Non ci sono reti da salvare");
-//					break;
-//				case 4:
-					//createPetri();
 					Menu_Petri.petriMenu(petriNetworks, networks);
 					break;
 				case 0:

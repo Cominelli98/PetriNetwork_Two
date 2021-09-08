@@ -32,21 +32,6 @@ public class Network implements NameGiver, JsonAble{
 	public void addLink (Link l) {
 		netLinks.add(l);
 	}
-	/*
-	public void removeLocation (Location l) {
-		locations.remove(l);
-	}
-	
-	public void removeTransition (Transition t) {
-		transitions.remove(t);
-	}
-	
-	public void removeLink (Link l) {
-		netLinks.remove(l);
-	}
-	*/
-	
-	
 	public ArrayList<Location> getLocations() {
 		return locations;
 	}
