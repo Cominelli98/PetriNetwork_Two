@@ -14,11 +14,19 @@ public final class Menu_Salva {
 	
 	private static final String SALVATAGGIO = "Salvataggio eseguito";
 	private static final String RICHIESTA_SALVATAGGIO = "Quale rete vuoi salvare?";
+	private static final String NO_RETI = "Non ci sono reti da salvare";
+	private static final String NO_P_RETI = "Non ci sono reti di petri da salvare";
+
+	
 	
 	/**
 	 * Metodo dedicato al salvataggio delle reti su file, permette di salvare una rete unica o tutte quelle create.
 	 */
 	public static void saveOption(ArrayList<Network> ns) {
+		if(ns.size() == 0) {
+			System.out.println(NO_RETI);
+			return;
+		}
 		int select = -1;
 		for (String s : MENUSALVA)
 			System.out.println(s);
@@ -40,6 +48,10 @@ public final class Menu_Salva {
 	}
 	
 	public static void pSaveOption(ArrayList<Petri_network> pn) {
+		if(pn.size() == 0) {
+			System.out.println(NO_P_RETI);
+			return;
+		}
 		int select = -1;
 		for (String s : MENUSALVA)
 			System.out.println(s);

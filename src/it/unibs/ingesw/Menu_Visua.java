@@ -13,11 +13,17 @@ public final class Menu_Visua {
 			"4:Visualizza rete complessiva",
 			"0:Indietro",
 			"___________________________"};
+	private final static String NO_RETI ="non ci sono reti da visualizzare";
+	private final static String NO_P_RETI ="non ci sono reti di petri da visualizzare";
 	
 	/**
 	 * Stampa a video elenco di posti, transizioni, link e reti complessive
 	 */
 	public static void netViewer(ArrayList<Network> ns) {
+		if(ns.size() == 0) {
+			System.out.println(NO_RETI);
+			return;
+		}
 		System.out.println("Quale rete vuoi visualizzare?");
 		System.out.println(getNetworksList(ns));
 		int i = Utility.readLimitedInt(0, ns.size());
@@ -69,6 +75,10 @@ public final class Menu_Visua {
 
 	
 	public static void petriNetViewer(ArrayList<Petri_network> pn) {
+		if(pn.size() == 0) {
+			System.out.println(NO_P_RETI);
+			return;
+		}
 		System.out.println("Quale rete di Petri vuoi visualizzare?");
 		System.out.println(getPNetworksList(pn));
 		int i = Utility.readLimitedInt(0, pn.size());

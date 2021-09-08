@@ -20,9 +20,7 @@ public final class Menu_Reti {
 	final static String NOME_GIA_PRESENTE_TRANSITION = "Esiste già una transition con questo nome";
 	final static String LINK_GIA_PRESENTE = "Link già presente";
 	final static String ASKLINK = "A cosa vuoi collegarla? Inserisci il numero relativo";
-	private static final String NO_RETI_V = "Non ci sono reti di petri da visualizzare";
-	private static final String NO_RETI_S = "Non ci sono reti di petri da salvare";
-	
+
 	/**
 	 * Metodo di gestione della creazione di reti:
 	 * Crea una Network chiedendo all'utente un nome e imponendo la creazione di un posto, una transition
@@ -91,17 +89,10 @@ public final class Menu_Reti {
 					createLink(n.getTransition(trans), n.getLocation(loc), n);
 					break;
 				case 4:
-					if(ns.size() != 0)
-						Menu_Visua.netViewer(ns);
-					else {
-						System.out.println(NO_RETI_V);
-					}
+					Menu_Visua.netViewer(ns);
 					break;
 				case 5:
-					if(ns.size() != 0)
-						Menu_Salva.saveOption(ns);
-					else 
-						System.out.println(NO_RETI_S);
+					Menu_Salva.saveOption(ns);
 					break;
 			}
 		}while(select != 0);
